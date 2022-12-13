@@ -1,2 +1,2 @@
 # jasmineTestingExercise
-These the Jasmine Testing Exercise files.
+These are the Jasmine Testing Exercise files.
