@@ -23,3 +23,28 @@ function appendTd(tr, value) {
 
   tr.append(newTd);
 }
+
+// append delete button and removing server from allServers
+
+function appendDeleteBtn(tr, type) {
+  let newTd = document.createElement("td");
+  newTd.innerText = "X";
+  newTd.addEventListener("click", function (e) {
+    if (type === "payment") {
+      delete allPayments[e.target.parentElement.id];
+    } else {
+      delete allServers[e.target.parentElement.id];
+    }
+    e.target.parentElement.remove();
+    updateServerTable();
+    updateSummary();
+  });
+
+  tr.append(newTd);
+}
+function removeEle(e) {
+  let ele = evt.target.closest("tr");
+  delete allServers[ele.id];
+  ele.parentNode.removeChild(ele);
+  updateServerTable();
+}
