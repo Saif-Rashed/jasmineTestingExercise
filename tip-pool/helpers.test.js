@@ -1,46 +1,66 @@
-describe("Helpers Test Cases:", function () {
+describe("Utilities test (with setup and tear-down)", function () {
   beforeEach(function () {
     billAmtInput.value = 100;
     tipAmtInput.value = 20;
     submitPaymentInfo();
   });
-  it("should sum all payment tip amounts", function () {
+
+  it("should sum total tip amount of all payments on sumPaymentTotal()", function () {
     expect(sumPaymentTotal("tipAmt")).toEqual(20);
+
     billAmtInput.value = 200;
     tipAmtInput.value = 40;
+
     submitPaymentInfo();
+
     expect(sumPaymentTotal("tipAmt")).toEqual(60);
   });
-  it("should sum all payment bill amounts", function () {
+
+  it("should sum total bill amount of all payments on sumPaymentTotal()", function () {
     expect(sumPaymentTotal("billAmt")).toEqual(100);
+
     billAmtInput.value = 200;
     tipAmtInput.value = 40;
+
     submitPaymentInfo();
+
     expect(sumPaymentTotal("billAmt")).toEqual(300);
   });
-  it("should sum all payment tip percent", function () {
+
+  it("should sum total tip percent on sumPaymentTotal()", function () {
     expect(sumPaymentTotal("tipPercent")).toEqual(20);
-    billAmtInput.value = 200;
-    tipAmtInput.value = 40;
+
+    billAmtInput.value = 100;
+    tipAmtInput.value = 20;
+
     submitPaymentInfo();
+
     expect(sumPaymentTotal("tipPercent")).toEqual(40);
   });
-  it("should calculate tip percent", function () {
-    expect(calculateTipPercent(100, 20)).toEqual(20);
-    expect(calculateTipPercent(200, 40)).toEqual(20);
+
+  it("should sum tip percent of a single tip on calculateTipPercent()", function () {
+    expect(calculateTipPercent(100, 23)).toEqual(23);
+    expect(calculateTipPercent(111, 11)).toEqual(10);
   });
-  it("should generate new td from value and append on appendTd", function () {
+
+  it("should generate new td from value and append to tr on appendTd(tr, value)", function () {
     let newTr = document.createElement("tr");
+
     appendTd(newTr, "test");
+
     expect(newTr.children.length).toEqual(1);
     expect(newTr.firstChild.innerHTML).toEqual("test");
   });
-  it("should generate delete button and append on appendDeleteBtn", function () {
+
+  it("should generate delete td and append to tr on appendDeleteBtn(tr, type)", function () {
     let newTr = document.createElement("tr");
+
     appendDeleteBtn(newTr);
+
     expect(newTr.children.length).toEqual(1);
     expect(newTr.firstChild.innerHTML).toEqual("X");
   });
+
   afterEach(function () {
     billAmtInput.value = "";
     tipAmtInput.value = "";
@@ -50,8 +70,6 @@ describe("Helpers Test Cases:", function () {
     summaryTds[2].innerHTML = "";
     serverTbody.innerHTML = "";
     allPayments = {};
-    serverId = 0;
-    allServers = {};
     paymentId = 0;
   });
 });
